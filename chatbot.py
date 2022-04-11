@@ -13,7 +13,10 @@ trainer = ListTrainer(bot)
 
 for file in os.listdir('C:/Users/Anonymous/Desktop/ChatBot-Flask/data/'):
 
-    chats = open('C:/Users/Anonymous/Desktop/ChatBot-Flask/data/' + file, 'r').readlines()
+    chats = open(
+        f'C:/Users/Anonymous/Desktop/ChatBot-Flask/data/{file}', 'r'
+    ).readlines()
+
 
     trainer.train(chats)
 
@@ -35,7 +38,7 @@ def ask():
             bot_response = str(bot_response)      
             print(bot_response)
             return jsonify({'status':'OK','answer':bot_response})
- 
+
         elif message == ("bye"):
 
             bot_response='Hope to see you soon'
@@ -43,12 +46,10 @@ def ask():
             print(bot_response)
             return jsonify({'status':'OK','answer':bot_response})
 
-            break
-
         else:
-        
+
             try:
-                url  = "https://en.wikipedia.org/wiki/"+ message
+                url = f"https://en.wikipedia.org/wiki/{message}"
                 page = get(url).text
                 soup = BeautifulSoup(page,"html.parser")
                 p    = soup.find_all("p")
@@ -57,7 +58,7 @@ def ask():
             except IndexError as error:
 
                 bot_response = 'Sorry i have no idea about that.'
-            
+
                 print(bot_response)
                 return jsonify({'status':'OK','answer':bot_response})
 
