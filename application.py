@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import os
 from flask import Flask, render_template, request, jsonify
 
-app = Flask(__name__)
+application = Flask(__name__)
 
 bot= ChatBot('ChatBot')
 
@@ -17,11 +17,11 @@ for file in os.listdir('C:/Users/Anonymous/Desktop/ChatBot-Flask/data/'):
 
     trainer.train(chats)
 
-@app.route("/")
+@application.route("/")
 def hello():
     return render_template('chat.html')
 
-@app.route("/ask", methods=['POST'])
+@application.route("/ask", methods=['POST'])
 def ask():
 
     message = str(request.form['messageText'])
@@ -62,4 +62,4 @@ def ask():
                 return jsonify({'status':'OK','answer':bot_response})
 
 if __name__ == "__main__":
-    app.run()
+    application.run()
